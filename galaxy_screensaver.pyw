@@ -1,12 +1,11 @@
 """
-Galaxy Nebula Screensaver (Enhanced Aesthetic + Black Background)
+Galaxy Nebula Screensaver 
 - Rainbow meteor showers
 - Spark bursts when meteors fade out
 - Smooth glowing starfield
 - Subtle nebula gradient
-- Opaque black cosmic background
-- No mouse-click pause
 - Global hotkey toggle (Ctrl + Shift + `)
+- Have fun! Credit to AarshGarg2011Code on GitHub
 """
 
 import warnings
@@ -18,7 +17,6 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-# === CONFIG ===
 STAR_COUNT = 950
 METEOR_COUNT = 25
 SPARK_COUNT = 80
@@ -29,8 +27,6 @@ FADE_SPEED = 0.012
 screensaver_on = False
 running_screensaver = False
 
-
-# === STARFIELD ===
 def generate_stars():
     stars = []
     for _ in range(STAR_COUNT):
@@ -73,8 +69,6 @@ def draw_stars(stars, phase):
             s[2] = random.uniform(-100, -5)
     glEnd()
 
-
-# === METEORS ===
 def generate_meteors():
     meteors = []
     for _ in range(METEOR_COUNT):
@@ -126,8 +120,6 @@ def draw_meteors(meteors, phase, sparks):
             reset_meteor(meteors, m)
     glEnd()
 
-
-# === SPARKS ===
 def draw_sparks(sparks):
     glPointSize(2.2)
     glBegin(GL_POINTS)
@@ -145,8 +137,6 @@ def draw_sparks(sparks):
     glEnd()
     sparks[:] = alive
 
-
-# === BACKGROUND LAYERS ===
 def draw_black_background():
     """Opaque deep-black background at the very back."""
     glDisable(GL_DEPTH_TEST)
@@ -182,8 +172,6 @@ def draw_nebula_bg(phase):
     glEnable(GL_DEPTH_TEST)
     glPopMatrix()
 
-
-# === MAIN ===
 def galaxy_screensaver():
     global running_screensaver
     running_screensaver = True
@@ -213,7 +201,6 @@ def galaxy_screensaver():
     phase = 0
     cam_shift = 0
 
-    # Fade-in
     for fade in range(0, 80):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         draw_black_background()
@@ -247,7 +234,6 @@ def galaxy_screensaver():
         pygame.display.flip()
         clock.tick(60)
 
-    # Fade-out
     for fade in range(80, -1, -4):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         draw_black_background()
@@ -261,8 +247,6 @@ def galaxy_screensaver():
     pygame.quit()
     running_screensaver = False
 
-
-# === HOTKEY LISTENER ===
 def screensaver_listener():
     global screensaver_on, running_screensaver
     print("🌌 Galaxy Nebula Screensaver active. Press Ctrl + Shift + ` to toggle.")
@@ -282,3 +266,4 @@ if __name__ == "__main__":
         screensaver_listener()
     except KeyboardInterrupt:
         print("Exiting screensaver listener...")
+
